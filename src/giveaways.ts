@@ -6,10 +6,14 @@ import { askUserNewGiveawayData } from "./ui.js";
 import { types } from "node:util";
 
 export const loginUser = (email: string, password: string): void => {
-  programData.users.some(
+  const isUser = programData.users.find(
     (user) => user.email === email && user.password === password
-  )
-    ? ((programData.userEmail = email), console.log("¡Bienvenido!"), saveData())
+  );
+  isUser
+    ? ((programData.userEmail = email),
+      (programData.isAdmin = isUser.isAdmin),
+      console.log("¡Bienvenido!"),
+      saveData())
     : (console.log("Lo sentimos los datos no son correctos ¡BYE!"),
       process.exit(0));
 };
