@@ -19,3 +19,10 @@ export const loginUser = (email: string, password: string): void => {
     saveData();
   }
 };
+
+export const createGiveaway = (): void => {
+  const newGiveaway = askUserNewGiveawayData();
+  programData.giveaways.push(newGiveaway);
+  saveData();
+  console.log("Se ha añadido un nuevo sorteo");
+};
