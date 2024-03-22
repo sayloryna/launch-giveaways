@@ -42,3 +42,7 @@ export const listGiveaways = (): void => {
     }
   }
 };
+
+export const deleteGiveaway = (giveawayNumber: number): void => {
+  //...
+};
