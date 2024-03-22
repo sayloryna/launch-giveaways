@@ -46,7 +46,11 @@ export const listGiveaways = (): void => {
 };
 
 export const deleteGiveaway = (giveawayNumber: number): void => {
-  //...
+  const selectedGiveaway = programData.giveaways[giveawayNumber - 1];
+  selectedGiveaway
+    ? programData.giveaways.splice(giveawayNumber - 1, 1) &&
+      console.log("Se ha borrado el sorteo")
+    : console.log("El sorteo no existe");
   saveData();
 };
 
