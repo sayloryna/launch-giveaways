@@ -33,13 +33,11 @@ export const listGiveaways = (): void => {
   if (programData.giveaways.length === 0) {
     console.log("En este momento no hay sorteos disponibles");
   } else {
-    console.log(`
-    Éstos son los ${programData.giveaways.length} sorteos disponibles:
-
+    console.log(`Éstos son los ${programData.giveaways.length} sorteos disponibles:
     `);
-    for (let index = 0; (index = programData.giveaways.length); index++) {
+    for (let index = 0; index < programData.giveaways.length; index++) {
       console.log(
-        `${index}. ${programData.giveaways.at(index)?.name} en ${
+        `${index + 1}. ${programData.giveaways.at(index)?.name} en ${
           programData.giveaways.at(index)?.socialNetwork
         }.`
       );
