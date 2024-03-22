@@ -20,7 +20,11 @@ export const loginUser = (email: string, password: string): void => {
 
 export const createGiveaway = (): void => {
   const newGiveaway = askUserNewGiveawayData();
-  // programData.giveaways.push(newGiveaway);
+  programData.giveaways.push({
+    name: newGiveaway.giveawayName,
+    socialNetwork: newGiveaway.giveawaySocialNetwork,
+    participants: [],
+  });
   saveData();
   console.log("Se ha añadido un nuevo sorteo");
 };
@@ -44,5 +48,15 @@ export const listGiveaways = (): void => {
 };
 
 export const deleteGiveaway = (giveawayNumber: number): void => {
+  //...
+  saveData();
+};
+
+export const enterGiveaway = (giveawayNumber: number): void => {
+  //...
+  saveData();
+};
+
+export const listUserGiveaways = (): void => {
   //...
 };
