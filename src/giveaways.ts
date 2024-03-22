@@ -19,7 +19,26 @@ export const loginUser = (email: string, password: string): void => {
 };
 
 export const createGiveaway = (): void => {
-  //...
+  const newGiveaway = askUserNewGiveawayData();
+  // programData.giveaways.push(newGiveaway);
   saveData();
   console.log("Se ha añadido un nuevo sorteo");
+};
+
+export const listGiveaways = (): void => {
+  if (programData.giveaways.length === 0) {
+    console.log("En este momento no hay sorteos disponibles");
+  } else {
+    console.log(`
+    Éstos son los ${programData.giveaways.length} sorteos disponibles:
+
+    `);
+    for (let index = 0; (index = programData.giveaways.length); index++) {
+      console.log(
+        `${index}. ${programData.giveaways.at(index)?.name} en ${
+          programData.giveaways.at(index)?.socialNetwork
+        }.`
+      );
+    }
+  }
 };
