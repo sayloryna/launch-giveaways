@@ -55,7 +55,16 @@ export const deleteGiveaway = (giveawayNumber: number): void => {
 };
 
 export const enterGiveaway = (giveawayNumber: number): void => {
-  //...
+  const selectedGiveaway = programData.giveaways[giveawayNumber - 1];
+  selectedGiveaway
+    ? programData.giveaways.at(giveawayNumber - 1)?.participants.push({
+        name: "",
+        email: programData.userEmail,
+        password: "",
+        isAdmin: programData.isAdmin,
+      }) && console.log("Te has inscrito con éxito")
+    : console.log("No existe ese sorteo");
+
   saveData();
 };
 
