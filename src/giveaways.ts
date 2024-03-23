@@ -56,11 +56,19 @@ export const deleteGiveaway = (giveawayNumber: number): void => {
 
 export const enterGiveaway = (giveawayNumber: number): void => {
   const selectedGiveaway = programData.giveaways[giveawayNumber - 1];
+  const currentUser = programData.users.find(
+    (user) => user.email === programData.userEmail
+  );
+  if (!currentUser) {
+    console.log("Error:algo fallo");
+    return;
+  }
+
   selectedGiveaway
     ? programData.giveaways.at(giveawayNumber - 1)?.participants.push({
-        name: "",
+        name: currentUser?.name,
         email: programData.userEmail,
-        password: "",
+        password: currentUser?.password,
         isAdmin: programData.isAdmin,
       }) && console.log("Te has inscrito con éxito")
     : console.log("No existe ese sorteo");
@@ -69,5 +77,22 @@ export const enterGiveaway = (giveawayNumber: number): void => {
 };
 
 export const listUserGiveaways = (): void => {
-  //...
+  const userGiveaways: Giveaway[] = programData.giveaways.filter((giveaway) =>
+    giveaway.participants.find(
+      (participant) => participant.email === programData.userEmail
+    )
+  );
+  if (userGiveaways.length >= 1) {
+    console.log(`Estás inscrito en los siguientes ${userGiveaways.length} torneos:
+  `);
+    userGiveaways.forEach((giveaway) =>
+      console.log(
+        `${userGiveaways.indexOf(giveaway) + 1}. ${giveaway.name} en ${
+          giveaway.socialNetwork
+        }.`
+      )
+    );
+  } else {
+    console.log("No estas inscrito en ningún sorteo");
+  }
 };
