@@ -7,7 +7,7 @@ export const loginUser = (email: string, password: string): void => {
     (user) => user.email === email && user.password === password
   );
 
-  if (user == undefined) {
+  if (user === undefined) {
     console.log(
       `
 Lo sentimos los datos no son correctos ¡BYE!`
