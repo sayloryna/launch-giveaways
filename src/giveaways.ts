@@ -1,5 +1,5 @@
 import { programData, saveData } from "./storage.js";
-import { Giveaway, User } from "./types.js";
+import { Giveaway } from "./types.js";
 import { askUserNewGiveawayData } from "./ui.js";
 
 export const loginUser = (email: string, password: string): void => {
@@ -81,38 +81,43 @@ export const deleteGiveaway = (giveawayNumber: number): void => {
       `
 Se ha borrado el sorteo`
     );
+    saveData();
   } else {
     console.log(
       `
 El sorteo que intentas borrar no existe`
     );
-    saveData();
   }
 };
 
 export const enterGiveaway = (giveawayNumber: number): void => {
   const selectedGiveaway = programData.giveaways[giveawayNumber - 1];
+
   const currentUser = programData.users.find(
     (user) => user.email === programData.userEmail
   );
+
   if (!currentUser) {
     console.log(
       `
-ups!lgo ha pasado con tu cuenta,inicia sesion por favor`
+ups!Algo ha pasado con tu cuenta,inicia sesion por favor`
     );
-    process.exit(1);
-  }
-
-  if (
+    askUserNewGiveawayData();
+  } else if (giveawayNumber > programData.giveaways.length) {
+    console.log(
+      `
+No existe ese sorteo`
+    );
+  } else if (
     selectedGiveaway.participants.some(
       (user) => user.email === currentUser.email
     )
   ) {
     console.log(
       `
-Ya te estabas inscrito en ese sorteo`
+Ya  estabas inscrito en ese sorteo`
     );
-  } else if (selectedGiveaway) {
+  } else {
     programData.giveaways.at(giveawayNumber - 1)?.participants.push({
       name: currentUser.name,
       email: programData.userEmail,
@@ -124,11 +129,6 @@ Ya te estabas inscrito en ese sorteo`
 Te has inscrito con éxito`
     );
     saveData();
-  } else {
-    console.log(
-      `
-No existe ese sorteo`
-    );
   }
 };
 
@@ -141,12 +141,12 @@ export const listUserGiveaways = (): void => {
   if (userGiveaways.length >= 1) {
     console.log(
       `
-Estás inscrito en los siguientes ${userGiveaways.length} torneos:
+Estás inscrito en los siguientes ${userGiveaways.length} sorteos:
   `
     );
     userGiveaways.forEach((giveaway) =>
       console.log(
-        `${userGiveaways.indexOf(giveaway) + 1}. ${giveaway.name} en ${
+        `${programData.giveaways.indexOf(giveaway) + 1}. ${giveaway.name} en ${
           giveaway.socialNetwork
         }.`
       )
