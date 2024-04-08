@@ -18,6 +18,11 @@
     "husky": "^9.0.11",
     "typescript": "^5.3.3"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "CI=true npm test"
+    }
+  },
   "dependencies": {
     "prompt-sync": "^4.2.0"
   }
